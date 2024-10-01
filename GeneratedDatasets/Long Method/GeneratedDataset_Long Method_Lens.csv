@@ -1,0 +1,20 @@
+Code Smell,Project,Package,Class,Method,IsSmell,SeverityLevel,Severity,ATFD_method,FDP_method,MAXNESTING_method,LOC_method,CYCLO_method,NOLV_method,NOAV_method,FANOUT_method,CFNAMM_method,ATLD_method,CINT_method,CDISP_method,AMW_type,ATFD_type,CFNAMM_type,DIT_type,FANOUT_type,LCOM5_type,LOCNAMM_type,LOC_package,LOC_type,NIM_type,NOA_type,NOCS_package,NOCS_project,NOMNAMM_project,NOMNAMM_type,NOM_project,RFC_type,TCC_type,WMCNAMM_type,WMC_type,WOC_type,NOM_type,AMWNAMM_type,NOCS_type,NOM_package,NOMNAMM_package,LOCNAMM_package,LOC_project,LOCNAMM_project,NOAM_type,NOP_method,MaMCL_method,MeMCL_method,CLNAMM_method,num_not_final_not_static_attributes,number_private_visibility_attributes
+Long Method,Lens,Lens,Cloner,DeepClone(T obj),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,85,243,1,560,0,0,0,0,0,1,0,0,19,5,0,0,0,0,1,2,2,0,0,0
+Long Method,Lens,Lens,Program,Main(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,85,243,1,560,0,0,0,0,0,1,0,0,19,5,0,0,0,0,0,0,0,0,0,0
+Long Method,Lens,Lens,Engine,"OnActivated(object sender, EventArgs args)",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,2,2,2,0,13,5
+Long Method,Lens,Lens,Engine,"OnDeactivated(object sender, EventArgs args)",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,2,2,2,0,13,5
+Long Method,Lens,Lens,Engine,LoadContent(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,0,4,4,0,13,5
+Long Method,Lens,Lens,Engine,UnloadContent(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,0,2,2,1,13,5
+Long Method,Lens,Lens,Engine,Destroy(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,0,0,0,0,13,5
+Long Method,Lens,Lens,Engine,Initialize(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,0,3,2.125,1,13,5
+Long Method,Lens,Lens,Engine,Update(GameTime gameTime),1,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,1,2,2,1,13,5
+Long Method,Lens,Lens,Engine,RenderUi(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,0,0,0,0,13,5
+Long Method,Lens,Lens,Engine,SetState(GameState state),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,1,2,2,0,13,5
+Long Method,Lens,Lens,Engine,Quit(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,0,0,0,0,13,5
+Long Method,Lens,Lens,Engine,Draw(GameTime gameTime),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,1,2,2,0,13,5
+Long Method,Lens,Lens,Engine,"SetWindowed(int width, int height)",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,2,2,2,1,13,5
+Long Method,Lens,Lens,Engine,SetFullscreen(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,0,2,2,1,13,5
+Long Method,Lens,Lens,Engine,GetScreenWidth(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,0,2,2,0,13,5
+Long Method,Lens,Lens,Engine,GetScreenHeight(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,0,2,2,0,13,5
+Long Method,Lens,Lens,Engine,UpdateView(),1,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,5,85,243,3,560,0,0,0,0,0,16,0,0,19,5,0,0,0,0,0,2,2,2,13,5
+Long Method,Lens,Lens,Version,ToString(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,5,85,243,0,560,0,0,0,0,0,1,0,0,19,5,0,0,0,0,0,0,0,0,0,0
