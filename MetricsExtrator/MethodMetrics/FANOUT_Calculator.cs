@@ -1,16 +1,15 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.MethodMetrics
 {
     internal class FANOUT_Calculator
     {
-        internal static int CalculateFANOUTForMethod(IEnumerable<IMethodSymbol> invokedMethods)
+        internal int CalculateFANOUTForMethod(IEnumerable<IMethodSymbol> invokedMethods)
         {
             var uniqueCalledClasses = new HashSet<INamedTypeSymbol>();
             foreach (var invokedMethod in invokedMethods)

@@ -1,0 +1,447 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MetricsExtrator.Program" Collapsed="true">
+    <Position X="1" Y="1.25" Width="1.5" />
+    <AssociationLine Name="exporter" Type="MetricsExtrator.CsvExporter" FixedToPoint="true">
+      <Path>
+        <Point X="1.75" Y="1.812" />
+        <Point X="1.75" Y="2.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAQACAAAIIAAAAAAAAAAAAAAAAAAAAABAABBAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="codeMetricsAnalyzer" />
+      <Field Name="exporter" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MetricsExtrator.CodeMetricsAnalyzer" Collapsed="true">
+    <Position X="4.25" Y="1.25" Width="4.5" />
+    <AssociationLine Name="classMetricsCalculators" Type="MetricsExtrator.ClassMetrics.ClassMetricsCalculators" ManuallyRouted="true">
+      <Path>
+        <Point X="4.375" Y="1.812" />
+        <Point X="4.375" Y="4.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.068" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="packageMetrics" Type="MetricsExtrator.PackageMetrics">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.06" Y="0.057" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="projectMetrics" Type="MetricsExtrator.ProjectMetrics">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.059" Y="0.09" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="metricsUtilities" Type="MetricsExtrator.MetricsUtilities" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="1.5" />
+        <Point X="10" Y="1.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.082" Y="0.068" Height="0.182" Width="1.152" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="labeledCodeSmellMetricsList" Type="MetricsExtrator.LabeledCodeSmellMetrics" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="1.5" />
+        <Point X="9.312" Y="1.5" />
+        <Point X="9.312" Y="3.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-2.115" Y="0.118" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="methodMetricsCalculators" Type="MetricsExtrator.MethodMetrics.MethodMetricsCalculators" ManuallyRouted="true">
+      <Path>
+        <Point X="5.469" Y="1.812" />
+        <Point X="5.469" Y="4.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.827" Y="0.135" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gAAAABAiKAAIAAASAgACgABACFCDAAIIAIAhAAAAQAA=</HashCode>
+      <FileName>CodeMetricsAnalyzer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="classMetricsCalculators" />
+      <Field Name="methodMetricsCalculators" />
+      <Field Name="packageMetrics" />
+      <Field Name="projectMetrics" />
+      <Field Name="metricsUtilities" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="labeledCodeSmellMetricsList" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="MetricsExtrator.ClassMetrics.ClassMetricsCalculators" Collapsed="true">
+    <Position X="1" Y="4.25" Width="3.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Locnamm_Calculator" Type="MetricsExtrator.ClassMetrics.LOCNAMM_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.062" Y="4.812" />
+        <Point X="1.062" Y="6.781" />
+        <Point X="3" Y="6.781" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.338" Y="0.068" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Dit_Calculator" Type="MetricsExtrator.ClassMetrics.DIT_Calculator" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.062" Y="4.812" />
+        <Point X="1.062" Y="5.25" />
+        <Point X="3" Y="5.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.704" Y="0.076" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Rfc_Calculator" Type="MetricsExtrator.ClassMetrics.RFC_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.062" Y="4.812" />
+        <Point X="1.062" Y="7.531" />
+        <Point X="3" Y="7.531" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.72" Y="0.119" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Lcom5_Calculator" Type="MetricsExtrator.ClassMetrics.LCOM5_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.062" Y="4.812" />
+        <Point X="1.062" Y="6.031" />
+        <Point X="3" Y="6.031" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.504" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Tcc_Calculator" Type="MetricsExtrator.ClassMetrics.TCC_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.062" Y="4.812" />
+        <Point X="1.062" Y="8.281" />
+        <Point X="3" Y="8.281" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.674" Y="0.111" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAEEQQAAAAAAEIAEQAhAABgAABAAAAIogAAAAACEEAU=</HashCode>
+      <FileName>ClassMetrics\ClassMetricsCalculators.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Locnamm_Calculator" />
+      <Property Name="Dit_Calculator" />
+      <Property Name="Rfc_Calculator" />
+      <Property Name="Lcom5_Calculator" />
+      <Property Name="Tcc_Calculator" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.MethodMetricsCalculators" Collapsed="true">
+    <Position X="5" Y="4.25" Width="3.75" />
+    <AssociationLine Name="Mamcl_Calculator" Type="MetricsExtrator.MethodMetrics.MaMCL_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.062" Y="4.812" />
+        <Point X="5.062" Y="7.531" />
+        <Point X="6.75" Y="7.531" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.227" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Memcl_Calculator" Type="MetricsExtrator.MethodMetrics.MeMCL_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.062" Y="4.812" />
+        <Point X="5.062" Y="6.781" />
+        <Point X="6.75" Y="6.781" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.166" Y="0.143" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Clnamm_Calculator" Type="MetricsExtrator.MethodMetrics.CLNAMM_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.062" Y="4.812" />
+        <Point X="5.062" Y="12.031" />
+        <Point X="6.75" Y="12.031" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.212" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Atfd_Calculator" Type="MetricsExtrator.MethodMetrics.ATFD_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.062" Y="4.812" />
+        <Point X="5.062" Y="9.031" />
+        <Point X="6.75" Y="9.031" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.358" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Cint_Calculator" Type="MetricsExtrator.MethodMetrics.CINT_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.062" Y="4.812" />
+        <Point X="5.062" Y="11.281" />
+        <Point X="6.75" Y="11.281" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.358" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Fanout_Calculator" Type="MetricsExtrator.MethodMetrics.FANOUT_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.062" Y="4.812" />
+        <Point X="5.062" Y="12.781" />
+        <Point X="6.75" Y="12.781" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.227" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Atld_Calculator" Type="MetricsExtrator.MethodMetrics.ATLD_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.062" Y="4.812" />
+        <Point X="5.062" Y="9.781" />
+        <Point X="6.75" Y="9.781" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.358" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Cfnamm_Calculator" Type="MetricsExtrator.MethodMetrics.CFNAMM_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.062" Y="4.812" />
+        <Point X="5.062" Y="10.531" />
+        <Point X="6.75" Y="10.531" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.096" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Maxnesting_Calculator" Type="MetricsExtrator.MethodMetrics.MAXNESTING_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.062" Y="4.812" />
+        <Point X="5.062" Y="8.281" />
+        <Point X="6.75" Y="8.281" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.096" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Noav_Calculator" Type="MetricsExtrator.MethodMetrics.NOAV_Calculator" ManuallyRouted="true">
+      <Path>
+        <Point X="5.062" Y="4.812" />
+        <Point X="5.062" Y="6.062" />
+        <Point X="6.75" Y="6.062" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.331" Y="0.146" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Fdp_Calculator" Type="MetricsExtrator.MethodMetrics.FDP_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.062" Y="4.812" />
+        <Point X="5.062" Y="13.531" />
+        <Point X="6.75" Y="13.531" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.372" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Nolv_Calculator" Type="MetricsExtrator.MethodMetrics.NOLV_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.062" Y="4.812" />
+        <Point X="5.062" Y="5.281" />
+        <Point X="6.75" Y="5.281" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.343" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ABAQSAAACAAAEAgAAAEAAAEAAEACAIAAQAQAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\MethodMetricsCalculators.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Mamcl_Calculator" />
+      <Property Name="Memcl_Calculator" />
+      <Property Name="Clnamm_Calculator" />
+      <Property Name="Atfd_Calculator" />
+      <Property Name="Cint_Calculator" />
+      <Property Name="Fanout_Calculator" />
+      <Property Name="Atld_Calculator" />
+      <Property Name="Cfnamm_Calculator" />
+      <Property Name="Maxnesting_Calculator" />
+      <Property Name="Fdp_Calculator" />
+      <Property Name="Noav_Calculator" />
+      <Property Name="Nolv_Calculator" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MetricsExtrator.PackageMetrics" Collapsed="true">
+    <Position X="6.75" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAQAAAAAAAAAAQAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>PackageMetrics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.ProjectMetrics" Collapsed="true">
+    <Position X="6" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAABAAAAAAAAAAABAAAAAAAAAABAA=</HashCode>
+      <FileName>ProjectMetrics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.CsvExporter" Collapsed="true">
+    <Position X="1" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>CsvExporter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.ClassMetrics.DIT_Calculator" Collapsed="true">
+    <Position X="3" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ClassMetrics\DIT_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.ClassMetrics.LCOM5_Calculator" Collapsed="true">
+    <Position X="3" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>ClassMetrics\LCOM5_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.ClassMetrics.LOCNAMM_Calculator" Collapsed="true">
+    <Position X="3" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>ClassMetrics\LOCNAMM_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.ClassMetrics.RFC_Calculator" Collapsed="true">
+    <Position X="3" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAIAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ClassMetrics\RFC_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.ClassMetrics.TCC_Calculator" Collapsed="true">
+    <Position X="3" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ClassMetrics\TCC_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.ATFD_Calculator" Collapsed="true">
+    <Position X="6.75" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\ATFD_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.ATLD_Calculator" Collapsed="true">
+    <Position X="6.75" Y="9.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAACAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>MethodMetrics\ATLD_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.CFNAMM_Calculator" Collapsed="true">
+    <Position X="6.75" Y="10.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAIAEAAAAAA=</HashCode>
+      <FileName>MethodMetrics\CFNAMM_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.CINT_Calculator" Collapsed="true">
+    <Position X="6.75" Y="11" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\CINT_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.CLNAMM_Calculator" Collapsed="true">
+    <Position X="6.75" Y="11.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\CLNAMM_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.FANOUT_Calculator" Collapsed="true">
+    <Position X="6.75" Y="12.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\FANOUT_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.FDP_Calculator" Collapsed="true">
+    <Position X="6.75" Y="13.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\FDP_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.MaMCL_Calculator" Collapsed="true">
+    <Position X="6.75" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\MaMCL_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.MAXNESTING_Calculator" Collapsed="true">
+    <Position X="6.75" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAIAA=</HashCode>
+      <FileName>MethodMetrics\MAXNESTING_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.MeMCL_Calculator" Collapsed="true">
+    <Position X="6.75" Y="6.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\MeMCL_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.NOAV_Calculator" Collapsed="true">
+    <Position X="6.75" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAIAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\NOAV_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.NOLV_Calculator" Collapsed="true">
+    <Position X="6.75" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\NOLV_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.LabeledCodeSmellMetrics" Collapsed="true">
+    <Position X="9" Y="3.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>IAEIAgIAYISAAaAiDRM6GAAAIABIgRCAQIAQAAUQFxE=</HashCode>
+      <FileName>LabeledCodeSmellMetrics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MetricsUtilities" Collapsed="true">
+    <Position X="10" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAACAAAAAAAAAAQAAAAAAAAAAAAAAAACAEAAAAAAAA=</HashCode>
+      <FileName>MetricsUtilities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

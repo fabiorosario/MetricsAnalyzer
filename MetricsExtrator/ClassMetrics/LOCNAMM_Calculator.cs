@@ -1,16 +1,15 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.MSBuild;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.ClassMetrics
 {
     internal class LOCNAMM_Calculator
     {
-        internal static int CalculateLOCNAMMForClass(ClassDeclarationSyntax classDeclaration)
+        internal int CalculateLOCNAMMForClass(ClassDeclarationSyntax classDeclaration)
         {
             var totalLines = 0;
             var methodLines = 0;

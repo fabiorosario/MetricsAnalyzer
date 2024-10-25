@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.MethodMetrics
 {
     internal class MAXNESTING_Calculator
     {
-        internal static int GetMaxNestingLevel(BlockSyntax body)
+        internal int GetMaxNestingLevel(BlockSyntax body)
         {
             if (body == null) return 0;
 
@@ -43,7 +43,7 @@ namespace MetricsExtrator
             return maxNesting;
         }
 
-        private static bool IsControlFlowStatement(SyntaxNode node)
+        private bool IsControlFlowStatement(SyntaxNode node)
         {
             return node is IfStatementSyntax ||
                    node is ForStatementSyntax ||

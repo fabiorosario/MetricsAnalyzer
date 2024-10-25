@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.ClassMetrics
 {
     internal class RFC_Calculator
     {
-        internal static int CalculateRFCForClass(ClassDeclarationSyntax classDeclaration, SemanticModel semanticModel)
+        internal int CalculateRFCForClass(ClassDeclarationSyntax classDeclaration, SemanticModel semanticModel)
         {
             var responseSet = new HashSet<IMethodSymbol>();
 
@@ -37,7 +37,7 @@ namespace MetricsExtrator
             return responseSet.Count;
         }
 
-        private static void AddMethodAndCalledMethodsToResponseSet(MethodDeclarationSyntax method, SemanticModel semanticModel, HashSet<IMethodSymbol> responseSet)
+        private void AddMethodAndCalledMethodsToResponseSet(MethodDeclarationSyntax method, SemanticModel semanticModel, HashSet<IMethodSymbol> responseSet)
         {
             var methodSymbol = semanticModel.GetDeclaredSymbol(method);
             if (methodSymbol != null)
@@ -47,7 +47,7 @@ namespace MetricsExtrator
             }
         }
 
-        private static void AddCalledMethodsToResponseSet(SyntaxNode methodNode, HashSet<IMethodSymbol> responseSet, SemanticModel semanticModel)
+        private void AddCalledMethodsToResponseSet(SyntaxNode methodNode, HashSet<IMethodSymbol> responseSet, SemanticModel semanticModel)
         {
             var calledMethods = methodNode.DescendantNodes().OfType<InvocationExpressionSyntax>();
             foreach (var calledMethod in calledMethods)
@@ -60,7 +60,7 @@ namespace MetricsExtrator
             }
         }
 
-        private static void AddCalledMethodsToResponseSet(IMethodSymbol method, HashSet<IMethodSymbol> responseSet, SemanticModel semanticModel)
+        private void AddCalledMethodsToResponseSet(IMethodSymbol method, HashSet<IMethodSymbol> responseSet, SemanticModel semanticModel)
         {
             try
             {

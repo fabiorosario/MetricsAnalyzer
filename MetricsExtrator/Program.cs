@@ -14,6 +14,9 @@ namespace MetricsExtrator
 
     class Program
     {
+        private static CodeMetricsAnalyzer codeMetricsAnalyzer;
+        private static CsvExporter exporter;
+
         static async Task Main(string[] args)
         {
             string codeSmell = "Long Method";
@@ -30,9 +33,6 @@ namespace MetricsExtrator
                 case "Data Class":
                     projectPaths = DataClassProjects();
                     break;
-                case "Refused Bequest":
-                    projectPaths = RefusedBequestProjects();
-                    break;
                 case "Feature Envy":
                     projectPaths = FeatureEnvyProjects();
                     break;
@@ -48,15 +48,17 @@ namespace MetricsExtrator
                 try
                 {
                     Console.WriteLine($"Analysing {projectPath}");
-                    string generatedDatasetPath = @"C:\Users\Fabio360\source\repos\Project1\GeneratedDatasets\";
+                    string generatedDatasetPath = @"C:\Users\Fabio360\source\repos\MetricsAnalyzer\GeneratedDatasets\";
 
                     var progress = new Progress<double>(percent => {
                         Console.WriteLine($"Progresso: {percent:P2}");
                     });
 
-                    var labeledCodeSmellMetrics = await CodeMetricsAnalyzer.CalculateMetrics(projectPath, codeSmell, progress);
+                    codeMetricsAnalyzer = new CodeMetricsAnalyzer();    
+                    
+                    var labeledCodeSmellMetrics = await codeMetricsAnalyzer.CalculateMetrics(projectPath, codeSmell, progress);
 
-                    var exporter = new CsvExporter();
+                    exporter = new CsvExporter();
                     exporter.ExportToCsv(labeledCodeSmellMetrics, $"{generatedDatasetPath}\\{codeSmell}\\GeneratedDataset_{codeSmell}");
 
                     Console.WriteLine($"Analysis completed. Results exported to metrics.csv");
@@ -66,22 +68,6 @@ namespace MetricsExtrator
                 catch { Console.WriteLine($"ERRO no {projectPath}"); }
 
             }
-
-            /*string generatedDatasetPath = @"C:\Users\Fabio360\source\repos\Project1\GeneratedDatasets\";
-
-            var progress = new Progress<double>(percent => {
-                Console.WriteLine($"Progresso: {percent:P2}");
-            });
-
-            var labeledCodeSmellMetrics = await CodeMetricsAnalyzer.CalculateMetrics(projectPaths, codeSmell, progress);
-
-            var exporter = new CsvExporter();
-            exporter.ExportToCsv(labeledCodeSmellMetrics, $"{generatedDatasetPath}\\{codeSmell}\\GeneratedDataset_{codeSmell}");
-
-            Console.WriteLine($"Analysis completed. Results exported to metrics.csv");
-
-            Console.Beep(264, 1250);*/
-
         }
 
         private static string[] LargeClass_LongMethodProjects()
@@ -187,10 +173,6 @@ namespace MetricsExtrator
 
                 @"C:\ProjetosCSharp\DataClassProjects\Radarr-5ce1829709e7e1de3953c04e5dab4f3a9d450b38\src\NzbDrone.Core\Radarr.Core.csproj",
                 @"C:\ProjetosCSharp\DataClassProjects\Radarr-5ce1829709e7e1de3953c04e5dab4f3a9d450b38\src\Radarr.Http\Radarr.Http.csproj",
-
-                //faltou@"C:\ProjetosCSharp\DataClassProjects\Ryujinx-81e9b86cdb4b2a01cc41b8e8a4dff2c9e3c13843\Ryujinx.Audio\Ryujinx.Audio.csproj",
-                //faltou@"C:\ProjetosCSharp\DataClassProjects\Ryujinx-81e9b86cdb4b2a01cc41b8e8a4dff2c9e3c13843\Ryujinx.Graphics.Shader\Ryujinx.Graphics.Shader.csproj",
-                //faltou@"C:\ProjetosCSharp\DataClassProjects\Ryujinx-81e9b86cdb4b2a01cc41b8e8a4dff2c9e3c13843\Ryujinx.HLE\Ryujinx.HLE.csproj",
 
                 @"C:\ProjetosCSharp\DataClassProjects\ShareX-c9a71ed00eda0e7c5a45237b9bcd3f8f614cda63\ShareX.IndexerLib\ShareX.IndexerLib.csproj",
                 @"C:\ProjetosCSharp\DataClassProjects\ShareX-c9a71ed00eda0e7c5a45237b9bcd3f8f614cda63\ShareX.MediaLib\ShareX.MediaLib.csproj",

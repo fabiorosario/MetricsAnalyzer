@@ -6,11 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.MethodMetrics
 {
     internal class NOAV_Calculator
     {
-        internal static int CalculateNOAVForMethod(MethodDeclarationSyntax method, SemanticModel semanticModel)
+        MetricsUtilities metricsUtilities;
+
+        public NOAV_Calculator()
+        {
+            metricsUtilities = new MetricsUtilities();
+        }
+
+        internal int CalculateNOAVForMethod(MethodDeclarationSyntax method, SemanticModel semanticModel)
         {
             var variables = new HashSet<ISymbol>();
 
@@ -21,7 +28,7 @@ namespace MetricsExtrator
                     if (descendant is VariableDeclaratorSyntax variableDeclarator)
                     {
                         var symbolInfo = semanticModel.GetDeclaredSymbol(variableDeclarator);
-                        if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                        if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                         {
                             variables.Add(symbolInfo);
                         }
@@ -29,7 +36,7 @@ namespace MetricsExtrator
                     else if (descendant is ParameterSyntax parameter)
                     {
                         var symbolInfo = semanticModel.GetDeclaredSymbol(parameter);
-                        if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                        if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                         {
                             variables.Add(symbolInfo);
                         }
@@ -37,7 +44,7 @@ namespace MetricsExtrator
                     else if (descendant is CatchClauseSyntax catchClause)
                     {
                         var symbolInfo = semanticModel.GetDeclaredSymbol(catchClause.Declaration.Identifier.Parent);
-                        if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                        if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                         {
                             variables.Add(symbolInfo);
                         }
@@ -45,7 +52,7 @@ namespace MetricsExtrator
                     else if (descendant is EnumMemberDeclarationSyntax enumMember)
                     {
                         var symbolInfo = semanticModel.GetDeclaredSymbol(enumMember);
-                        if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                        if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                         {
                             variables.Add(symbolInfo);
                         }
@@ -55,7 +62,7 @@ namespace MetricsExtrator
                         var symbolInfos = variableDeclaration.Variables.Select(v => semanticModel.GetDeclaredSymbol(v));
                         foreach (var symbolInfo in symbolInfos)
                         {
-                            if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                            if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                             {
                                 variables.Add(symbolInfo);
                             }
@@ -86,7 +93,7 @@ namespace MetricsExtrator
             return variables.Count;
         }
 
-        internal static int CalculateNOAVForMethod(ConstructorDeclarationSyntax constructor, SemanticModel semanticModel)
+        internal int CalculateNOAVForMethod(ConstructorDeclarationSyntax constructor, SemanticModel semanticModel)
         {
             var variables = new HashSet<ISymbol>();
 
@@ -97,7 +104,7 @@ namespace MetricsExtrator
                     if (descendant is VariableDeclaratorSyntax variableDeclarator)
                     {
                         var symbolInfo = semanticModel.GetDeclaredSymbol(variableDeclarator);
-                        if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                        if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                         {
                             variables.Add(symbolInfo);
                         }
@@ -105,7 +112,7 @@ namespace MetricsExtrator
                     else if (descendant is ParameterSyntax parameter)
                     {
                         var symbolInfo = semanticModel.GetDeclaredSymbol(parameter);
-                        if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                        if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                         {
                             variables.Add(symbolInfo);
                         }
@@ -113,7 +120,7 @@ namespace MetricsExtrator
                     else if (descendant is CatchClauseSyntax catchClause)
                     {
                         var symbolInfo = semanticModel.GetDeclaredSymbol(catchClause.Declaration.Identifier.Parent);
-                        if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                        if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                         {
                             variables.Add(symbolInfo);
                         }
@@ -121,7 +128,7 @@ namespace MetricsExtrator
                     else if (descendant is EnumMemberDeclarationSyntax enumMember)
                     {
                         var symbolInfo = semanticModel.GetDeclaredSymbol(enumMember);
-                        if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                        if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                         {
                             variables.Add(symbolInfo);
                         }
@@ -131,7 +138,7 @@ namespace MetricsExtrator
                         var symbolInfos = variableDeclaration.Variables.Select(v => semanticModel.GetDeclaredSymbol(v));
                         foreach (var symbolInfo in symbolInfos)
                         {
-                            if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                            if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                             {
                                 variables.Add(symbolInfo);
                             }
@@ -162,7 +169,7 @@ namespace MetricsExtrator
             return variables.Count;
         }
 
-        private static IEnumerable<ISymbol> GetVariablesAccessedByMethod(IMethodSymbol methodSymbol, SemanticModel semanticModel)
+        private IEnumerable<ISymbol> GetVariablesAccessedByMethod(IMethodSymbol methodSymbol, SemanticModel semanticModel)
         {
             var variables = new HashSet<ISymbol>();
             var methodDeclaration = methodSymbol.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax() as MethodDeclarationSyntax;
@@ -175,7 +182,7 @@ namespace MetricsExtrator
                         if (descendant is VariableDeclaratorSyntax variableDeclarator)
                         {
                             var symbolInfo = semanticModel.GetDeclaredSymbol(variableDeclarator);
-                            if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                            if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                             {
                                 variables.Add(symbolInfo);
                             }
@@ -183,7 +190,7 @@ namespace MetricsExtrator
                         else if (descendant is ParameterSyntax parameter)
                         {
                             var symbolInfo = semanticModel.GetDeclaredSymbol(parameter);
-                            if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                            if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                             {
                                 variables.Add(symbolInfo);
                             }
@@ -191,7 +198,7 @@ namespace MetricsExtrator
                         else if (descendant is CatchClauseSyntax catchClause)
                         {
                             var symbolInfo = semanticModel.GetDeclaredSymbol(catchClause.Declaration.Identifier.Parent);
-                            if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                            if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                             {
                                 variables.Add(symbolInfo);
                             }
@@ -199,7 +206,7 @@ namespace MetricsExtrator
                         else if (descendant is EnumMemberDeclarationSyntax enumMember)
                         {
                             var symbolInfo = semanticModel.GetDeclaredSymbol(enumMember);
-                            if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                            if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                             {
                                 variables.Add(symbolInfo);
                             }
@@ -209,7 +216,7 @@ namespace MetricsExtrator
                             var symbolInfos = variableDeclaration.Variables.Select(v => semanticModel.GetDeclaredSymbol(v));
                             foreach (var symbolInfo in symbolInfos)
                             {
-                                if (symbolInfo != null && IsVariableSymbol(symbolInfo))
+                                if (symbolInfo != null && metricsUtilities.IsVariableSymbol(symbolInfo))
                                 {
                                     variables.Add(symbolInfo);
                                 }
@@ -220,14 +227,6 @@ namespace MetricsExtrator
                 }
             }
             return variables;
-        }
-
-        private static bool IsVariableSymbol(ISymbol symbol)
-        {
-            return symbol.Kind == SymbolKind.Local ||
-                   symbol.Kind == SymbolKind.Parameter ||
-                   symbol.Kind == SymbolKind.Field ||
-                   symbol.Kind == SymbolKind.Property;
         }
     }
 }

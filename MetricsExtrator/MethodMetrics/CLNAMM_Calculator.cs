@@ -6,11 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.MethodMetrics
 {
-    internal class CLNAMMCalculator
+    internal class CLNAMM_Calculator
     {
-        internal static int CalculateCLNAMMForMethod(MethodDeclarationSyntax method, SemanticModel semanticModel)
+        MetricsUtilities metricsUtilities;
+        public CLNAMM_Calculator()
+        {
+            metricsUtilities = new MetricsUtilities();
+        }
+        internal int CalculateCLNAMMForMethod(MethodDeclarationSyntax method, SemanticModel semanticModel)
         {
             // Obter todos os métodos na classe atual que não são acessores ou mutadores
             var classDeclaration = method.Parent as ClassDeclarationSyntax;
@@ -19,7 +24,7 @@ namespace MetricsExtrator
 
             var localMethods = classDeclaration.Members
                 .OfType<MethodDeclarationSyntax>()
-                .Where(m => !MethodMetricsUtilities.IsAccessorOrMutator(m));
+                .Where(m => !metricsUtilities.IsAccessorOrMutator(m));
 
             var clnammCount = 0;
 

@@ -6,12 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.MethodMetrics
 {
-    public class CFNAMM_Calculator
+    internal class CFNAMM_Calculator
     {
-
-        public static int CalculateMethodCFNAMM(MethodDeclarationSyntax method, SemanticModel semanticModel)
+        public int CalculateMethodCFNAMM(MethodDeclarationSyntax method, SemanticModel semanticModel)
         {
             var calledMethods = new HashSet<IMethodSymbol>();
             var methodBody = method.Body;
@@ -32,7 +31,7 @@ namespace MetricsExtrator
             return calledMethods.Count;
         }
 
-        public static int CalculateMethodCFNAMM(ConstructorDeclarationSyntax constructor, SemanticModel semanticModel)
+        public int CalculateMethodCFNAMM(ConstructorDeclarationSyntax constructor, SemanticModel semanticModel)
         {
             var calledMethods = new HashSet<IMethodSymbol>();
             var constructorBody = constructor.Body;
@@ -53,15 +52,14 @@ namespace MetricsExtrator
             return calledMethods.Count;
         }
 
-        private static bool IsNonAccessorOrMutator(IMethodSymbol method)
+        private bool IsNonAccessorOrMutator(IMethodSymbol method)
         {
             return !method.Name.StartsWith("get_") && !method.Name.StartsWith("set_");
         }
 
-        private static bool IsDefaultConstructor(IMethodSymbol method)
+        private bool IsDefaultConstructor(IMethodSymbol method)
         {
             return method.MethodKind == MethodKind.Constructor && method.Parameters.Length == 0;
         }
-
     }
 }

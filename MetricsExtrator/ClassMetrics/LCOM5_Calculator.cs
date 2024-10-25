@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.ClassMetrics
 {
     internal class LCOM5_Calculator
     {
-        internal static double CalculateLCOM5ForClass(ClassDeclarationSyntax classDeclaration, SemanticModel semanticModel)
+        internal double CalculateLCOM5ForClass(ClassDeclarationSyntax classDeclaration, SemanticModel semanticModel)
         {
             var methods = classDeclaration.Members.OfType<MethodDeclarationSyntax>();
             var fields = classDeclaration.Members.OfType<FieldDeclarationSyntax>();

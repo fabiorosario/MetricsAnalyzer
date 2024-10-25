@@ -6,37 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.MethodMetrics
 {
     internal class FDP_Calculator
     {
-
-        internal static int CalculateFDPForMethod_ant(MethodDeclarationSyntax method, SemanticModel semanticModel)
-        {
-            var accessedClasses = new HashSet<INamedTypeSymbol>();
-
-            try
-            {
-                var dataFlows = semanticModel.AnalyzeDataFlow(method.Body);
-
-                if (dataFlows != null)
-                {
-                    foreach (var accessedVariable in dataFlows.ReadOutside)
-                    {
-                        if (accessedVariable.ContainingType != null && !accessedVariable.ContainingType.Equals(semanticModel.GetDeclaredSymbol(method.Parent)))
-                        {
-                            accessedClasses.Add(accessedVariable.ContainingType);
-                        }
-                    }
-                }
-            }
-            catch { }
-
-            return accessedClasses.Count;
-        }
-
-
-        internal static int CalculateFDPForMethod(MethodDeclarationSyntax method, SemanticModel semanticModel)
+        internal int CalculateFDPForMethod(MethodDeclarationSyntax method, SemanticModel semanticModel)
         {
             var accessedClasses = new HashSet<INamedTypeSymbol>();
 
@@ -67,7 +41,7 @@ namespace MetricsExtrator
             return accessedClasses.Count;
         }
 
-        internal static int CalculateFDPForMethod(ConstructorDeclarationSyntax constructor, SemanticModel semanticModel)
+        internal int CalculateFDPForMethod(ConstructorDeclarationSyntax constructor, SemanticModel semanticModel)
         {
             var accessedClasses = new HashSet<INamedTypeSymbol>();
 
@@ -97,6 +71,5 @@ namespace MetricsExtrator
 
             return accessedClasses.Count;
         }
-
     }
 }

@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.MethodMetrics
 {
     internal class CINT_Calculator
     {
-        internal static IEnumerable<IMethodSymbol> CalculateCINTForMethod(MethodDeclarationSyntax method, SemanticModel semanticModel, ClassDeclarationSyntax classDeclaration)
+        internal IEnumerable<IMethodSymbol> CalculateCINTForMethod(MethodDeclarationSyntax method, SemanticModel semanticModel, ClassDeclarationSyntax classDeclaration)
         {
             var invokedMethods = method.DescendantNodes()
             .OfType<InvocationExpressionSyntax>()

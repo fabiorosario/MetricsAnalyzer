@@ -12,6 +12,8 @@ using System.IO;
 using Microsoft.VisualBasic;
 using System.Reflection.Metadata;
 using Microsoft.Build.Evaluation;
+using MetricsExtrator.ClassMetrics;
+using MetricsExtrator.MethodMetrics;
 
 namespace MetricsExtrator
 {
@@ -19,7 +21,6 @@ namespace MetricsExtrator
     {
         private const string LC = "Large Class";
         private const string DC = "Data Class";
-        private const string RB = "Refused Bequest";
         private const string LM = "Long Method";
         private const string FE = "Feature Envy";
         private static bool isMethodCodeSmell = true;
@@ -30,22 +31,30 @@ namespace MetricsExtrator
         private static string currentProject = string.Empty;
         private static string currentKeyBase = string.Empty;
         private static string currentKey = string.Empty;
+        private ClassMetricsCalculators classMetricsCalculators;
+        private MethodMetricsCalculators methodMetricsCalculators;
+        private PackageMetrics packageMetrics;
+        private ProjectMetrics projectMetrics;
+        private List<LabeledCodeSmellMetrics> labeledCodeSmellMetricsList;
+        private MetricsUtilities metricsUtilities;
 
-        public static async Task<List<LabeledCodeSmellMetrics>> CalculateMetrics(string projectPath, string codeSmell, IProgress<double> progress)
+        public CodeMetricsAnalyzer()
+        {
+            classMetricsCalculators = new ClassMetricsCalculators();
+            methodMetricsCalculators = new MethodMetricsCalculators();
+            packageMetrics = new PackageMetrics();
+            projectMetrics = new ProjectMetrics();
+            metricsUtilities = new MetricsUtilities();
+        }
+
+
+        public async Task<List<LabeledCodeSmellMetrics>> CalculateMetrics(string projectPath, string codeSmell, IProgress<double> progress)
         {
             
-            List<LabeledCodeSmellMetrics> labeledCodeSmellMetricsList = new List<LabeledCodeSmellMetrics>();
+            labeledCodeSmellMetricsList = new List<LabeledCodeSmellMetrics>();
 
             var labeledCodeSmell = LabeledCodeSmell(codeSmell);
-
-            //var workspace = MSBuildWorkspace.Create();
-            //var solution = await workspace.OpenSolutionAsync(projectPath);
-
-            //foreach (var project in solution.Projects)
-            //{
-
-            
-            
+           
             metricsResults = new Dictionary<string, double>();
 
             var workspace = MSBuildWorkspace.Create();
@@ -72,94 +81,94 @@ namespace MetricsExtrator
 
                 foreach (var classDeclaration in classDeclarations)
                 {
-                    currentNamespace = GetNamespace(classDeclaration);
+                    currentNamespace = metricsUtilities.GetNamespace(classDeclaration);
 
                     var className = classDeclaration.Identifier.ToString();
 
                     var methods = classDeclaration.DescendantNodes().OfType<MethodDeclarationSyntax>();
                     var classSymbol = semanticModelDocument.GetDeclaredSymbol(classDeclaration) as INamedTypeSymbol;
 
-                    var LOC_type = 0;//ClassMetricsUtilities.CalculateLinesOfCode(classDeclaration);
+                    var LOC_type = classMetricsCalculators.CalculateLinesOfCode(classDeclaration);
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.LOC_type";
                     AddMetricResult(metricsResults, currentKey, LOC_type);
 
-                    var LOC_package = LOC_type;
+                    packageMetrics.LOC_package = LOC_type;
                     currentKey = $"{currentProject}.{currentNamespace}.LOC_package";
-                    AddMetricResult(metricsResults, currentKey, LOC_package);
+                    AddMetricResult(metricsResults, currentKey, packageMetrics.LOC_package);
 
-                    var LOC_project = LOC_type;
+                    projectMetrics.LOC_project = LOC_type;
                     currentKey = $"{currentProject}.LOC_project";
-                    AddMetricResult(metricsResults, currentKey, LOC_project);
+                    AddMetricResult(metricsResults, currentKey, projectMetrics.LOC_project);
 
-                    var LOCNAMM_type = 0;//LOCNAMM_Calculator.CalculateLOCNAMMForClass(classDeclaration);
+                    var LOCNAMM_type = classMetricsCalculators.Locnamm_Calculator.CalculateLOCNAMMForClass(classDeclaration);
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.LOCNAMM_type";
                     AddMetricResult(metricsResults, currentKey, LOCNAMM_type);
 
-                    var LOCNAMM_package = LOCNAMM_type;
+                    packageMetrics.LOCNAMM_package = LOCNAMM_type;
                     currentKey = $"{currentProject}.{currentNamespace}.LOCNAMM_package";
-                    AddMetricResult(metricsResults, currentKey, LOCNAMM_package);
+                    AddMetricResult(metricsResults, currentKey, packageMetrics.LOCNAMM_package);
 
-                    var LOCNAMM_project = LOCNAMM_type;
+                    projectMetrics.LOCNAMM_project = LOCNAMM_type;
                     currentKey = $"{currentProject}.LOCNAMM_project";
-                    AddMetricResult(metricsResults, currentKey, LOCNAMM_project);
+                    AddMetricResult(metricsResults, currentKey, projectMetrics.LOCNAMM_project);
 
-                    var NOCS_type = 0;//NOCS_Calculator.CountNestedClasses(classDeclaration);
+                    var NOCS_type = classMetricsCalculators.CountNestedClasses(classDeclaration);
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.NOCS_type";
                     AddMetricResult(metricsResults, currentKey, NOCS_type);
 
-                    var NOCS_package = NOCS_type + 1; // Include the class itself
+                    packageMetrics.NOCS_package = NOCS_type + 1; // Include the class itself
                     currentKey = $"{currentProject}.{currentNamespace}.NOCS_package";
-                    AddMetricResult(metricsResults, currentKey, NOCS_package);
+                    AddMetricResult(metricsResults, currentKey, packageMetrics.NOCS_package);
 
-                    var NOCS_project = NOCS_type + 1; // Include the class itself
+                    projectMetrics.NOCS_project = NOCS_type + 1; // Include the class itself
                     currentKey = $"{currentProject}.NOCS_project";
-                    AddMetricResult(metricsResults, currentKey, NOCS_project);
+                    AddMetricResult(metricsResults, currentKey, projectMetrics.NOCS_project);
 
-                    double NOM_type = methods.Count();
+                    double NOM_type = classMetricsCalculators.CountMethodsClass(classDeclaration);
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.NOM_type";
                     AddMetricResult(metricsResults, currentKey, NOM_type);
 
-                    double NOM_package = NOM_type;
+                    packageMetrics.NOM_package = NOM_type;
                     currentKey = $"{currentProject}.{currentNamespace}.NOM_package";
-                    AddMetricResult(metricsResults, currentKey, NOM_package);
+                    AddMetricResult(metricsResults, currentKey, packageMetrics.NOM_package);
 
-                    double NOM_project = NOM_type;
+                    projectMetrics.NOM_project = NOM_type;
                     currentKey = $"{currentProject}.NOM_project";
-                    AddMetricResult(metricsResults, currentKey, NOM_project);
+                    AddMetricResult(metricsResults, currentKey, projectMetrics.NOM_project);
 
-                    var DIT_type = 0;//DIT_Calculator.CalculateClassDIT(classSymbol, project);
+                    var DIT_type = classMetricsCalculators.Dit_Calculator.CalculateClassDIT(classSymbol, project);
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.DIT_type";
                     AddMetricResult(metricsResults, currentKey, DIT_type);
 
-                    var NOA_type = classDeclaration.Members.OfType<FieldDeclarationSyntax>().Count();
+                    var NOA_type = classMetricsCalculators.CalculateClassNOA(classDeclaration);
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.NOA_type";
                     AddMetricResult(metricsResults, currentKey, NOA_type);
 
-                    var NIM_type = 0;//ClassMetricsUtilities.CalculateNumberOfInheritedMethods(classDeclaration);
+                    var NIM_type = classMetricsCalculators.CalculateNumberOfInheritedMethods(classDeclaration);
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.NIM_type";
                     AddMetricResult(metricsResults, currentKey, NIM_type);
 
-                    var WOC_type = 0;//ClassMetricsUtilities.CalculateWeightOfClass(classDeclaration);
+                    var WOC_type = classMetricsCalculators.CalculateWeightOfClass(classDeclaration);
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.WOC_type";
                     AddMetricResult(metricsResults, currentKey, WOC_type);
 
-                    var RFC_type = 0;// RFC_Calculator.CalculateRFCForClass(classDeclaration, semanticModelDocument);
+                    var RFC_type = classMetricsCalculators.Rfc_Calculator.CalculateRFCForClass(classDeclaration, semanticModelDocument);
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.RFC_type";
                     AddMetricResult(metricsResults, currentKey, RFC_type);
 
-                    var LCOM5_type = 0;//LCOM5_Calculator.CalculateLCOM5ForClass(classDeclaration, semanticModelDocument);
+                    var LCOM5_type = classMetricsCalculators.Lcom5_Calculator.CalculateLCOM5ForClass(classDeclaration, semanticModelDocument);
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.LCOM5_type";
                     AddMetricResult(metricsResults, currentKey, LCOM5_type);
 
-                    var TCC_type = 0;//TCC_Calculator.CalculateTCCForClass(classDeclaration, semanticModelDocument);
+                    var TCC_type = classMetricsCalculators.Tcc_Calculator.CalculateTCCForClass(classDeclaration, semanticModelDocument);
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.TCC_type";
                     AddMetricResult(metricsResults, currentKey, TCC_type);
 
-                    var num_not_final_not_static_attributes = MethodMetricsUtilities.CalculateNonFinalNonStaticAttributes(classDeclaration, semanticModelDocument);
+                    var num_not_final_not_static_attributes = classMetricsCalculators.CalculateNonFinalNonStaticAttributes(classDeclaration, semanticModelDocument);
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.num_not_final_not_static_attributes";
                     AddMetricResult(metricsResults, currentKey, num_not_final_not_static_attributes);
 
-                    var number_private_visibility_attributes = MethodMetricsUtilities.CalculateNumberOfPrivateAttributes(classDeclaration);
+                    var number_private_visibility_attributes = classMetricsCalculators.CalculateNumberOfPrivateAttributes(classDeclaration);
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.number_private_visibility_attributes";
                     AddMetricResult(metricsResults, currentKey, number_private_visibility_attributes);
 
@@ -214,151 +223,151 @@ namespace MetricsExtrator
                     AddMetricResult(metricsResults, currentKey, 0);
 
                     //class metrics that will be calculated during or after the foreach interaction statement of the class methods.
-                    double WMC_type = 0;
-                    double WMCNAMM_type = 0;
-                    double AMW_type = 0;
-                    double AMWNAMM_type = 0;
-                    double NOMNAMM_type = 0;
-                    double FANOUT_type = 0;
-                    var CFNAMM_type = 0;
-                    var NOAM_type = 0;
-                    var ATFD_type = 0;//ATFD_Calculator.CalculateATFDForClass(classDeclaration, semanticModelCompilation);
+                    classMetricsCalculators.Wmc_type = 0;
+                    classMetricsCalculators.Wmcnamm_type = 0;
+                    classMetricsCalculators.Amw_type = 0;
+                    classMetricsCalculators.Amwnamm_type = 0;
+                    classMetricsCalculators.Nomnamm_type = 0;
+                    classMetricsCalculators.Fanout_type = 0;
+                    classMetricsCalculators.Cfnamm_type = 0;
+                    classMetricsCalculators.Noam_type = 0;
+                    classMetricsCalculators.Atfd_type = classMetricsCalculators.CalculateATFDForClass(classDeclaration, semanticModelCompilation);
 
                     foreach (var method in methods)
                     {
                         var nameMethod = $"{method.Identifier}({string.Join(", ", method.ParameterList.Parameters)})";
 
-                        double CYCLO_method = 0;// MethodMetricsUtilities.CalculateCyclomaticComplexity(method);
+                        double CYCLO_method = methodMetricsCalculators.CalculateCyclomaticComplexity(method);
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.CYCLO_method";
                         AddMetricResult(metricsResults, currentKey, CYCLO_method);
-                        WMC_type += CYCLO_method;
+                        classMetricsCalculators.Wmc_type += CYCLO_method;
 
-                        if (MethodMetricsUtilities.IsAccessorOrMutator(method))
+                        if (metricsUtilities.IsAccessorOrMutator(method))
                         {
-                            NOAM_type++;
+                            classMetricsCalculators.Noam_type++;
                         }
                         else
                         {
-                            WMCNAMM_type += CYCLO_method;
+                            classMetricsCalculators.Wmcnamm_type += CYCLO_method;
                         }
 
-                        var NOP_method = method.ParameterList.Parameters.Count;
+                        var NOP_method = methodMetricsCalculators.CalculateNOPForMethod(method);
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.NOP_method";
                         AddMetricResult(metricsResults, currentKey, NOP_method);
 
-                        var MaMCL_method = MaMCLCalculator.CalculateMaMCLForMethod(method);
+                        var MaMCL_method = methodMetricsCalculators.Mamcl_Calculator.CalculateMaMCLForMethod(method);
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.MaMCL_method";
                         AddMetricResult(metricsResults, currentKey, MaMCL_method);
 
-                        var MeMCL_method = MeMCLCalculator.CalculateMeMCLForMethod(method, semanticModelDocument);
+                        var MeMCL_method = methodMetricsCalculators.Memcl_Calculator.CalculateMeMCLForMethod(method, semanticModelDocument);
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.MeMCL_method";
                         AddMetricResult(metricsResults, currentKey, MeMCL_method);
 
-                        var CLNAMM_method = CLNAMMCalculator.CalculateCLNAMMForMethod(method, semanticModelDocument);
+                        var CLNAMM_method = methodMetricsCalculators.Clnamm_Calculator.CalculateCLNAMMForMethod(method, semanticModelDocument);
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.CLNAMM_method";
                         AddMetricResult(metricsResults, currentKey, CLNAMM_method);
 
-                        var LOC_method = 0;// MethodMetricsUtilities.CalculateLinesOfCode(method);
+                        var LOC_method = methodMetricsCalculators.CalculateLinesOfCode(method);
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.LOC_method";
                         AddMetricResult(metricsResults, currentKey, LOC_method);
 
-                        var ATFD_method = 0;// ATFD_Calculator.CalculateATFDForMethod(method, semanticModelCompilation);
+                        var ATFD_method = methodMetricsCalculators.Atfd_Calculator.CalculateATFDForMethod(method, semanticModelCompilation);
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.ATFD_method";
                         AddMetricResult(metricsResults, currentKey, ATFD_method);
-                        ATFD_type += ATFD_method;
+                        classMetricsCalculators.Atfd_type += ATFD_method;
 
-                        var accessesMember = MethodMetricsUtilities.IsAccessesMember(method, semanticModelDocument);
+                        var accessesMember = metricsUtilities.IsAccessesMember(method, semanticModelDocument);
                         if (!accessesMember)
                         {
-                            NOMNAMM_type++;
+                            classMetricsCalculators.Nomnamm_type++;
                         }
 
-                        var invokedMethods = 0;// CINT_Calculator.CalculateCINTForMethod(method, semanticModelDocument, classDeclaration);
+                        var invokedMethods = methodMetricsCalculators.Cint_Calculator.CalculateCINTForMethod(method, semanticModelDocument, classDeclaration);
 
-                        double CINT_method = 0;// invokedMethods.Count();
+                        double CINT_method = invokedMethods.Count();
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.CINT_method";
                         AddMetricResult(metricsResults, currentKey, CINT_method);
 
-                        double FANOUT_method = 0;// FANOUT_Calculator.CalculateFANOUTForMethod(invokedMethods);
+                        double FANOUT_method = methodMetricsCalculators.Fanout_Calculator.CalculateFANOUTForMethod(invokedMethods);
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.FANOUT_method";
                         AddMetricResult(metricsResults, currentKey, FANOUT_method);
-                        FANOUT_type += FANOUT_method;
+                        classMetricsCalculators.Fanout_type += FANOUT_method;
 
-                        double CDISP_method = 0;
+                        methodMetricsCalculators.Cdisp_method = 0;
                         if (CINT_method != 0)
-                            CDISP_method = FANOUT_method / CINT_method;
+                            methodMetricsCalculators.Cdisp_method = FANOUT_method / CINT_method;
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.CDISP_method";
-                        AddMetricResult(metricsResults, currentKey, CDISP_method);
+                        AddMetricResult(metricsResults, currentKey, methodMetricsCalculators.Cdisp_method);
 
-                        var ATLD_method = 0;// ATLD_Calculator.CalculateMethodATLD(method, semanticModelDocument);
+                        var ATLD_method = methodMetricsCalculators.Atld_Calculator.CalculateMethodATLD(method, semanticModelDocument);
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.ATLD_method";
                         AddMetricResult(metricsResults, currentKey, ATLD_method);
 
-                        var CFNAMM_method = 0;// CFNAMM_Calculator.CalculateMethodCFNAMM(method, semanticModelDocument);
+                        var CFNAMM_method = methodMetricsCalculators.Cfnamm_Calculator.CalculateMethodCFNAMM(method, semanticModelDocument);
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.CFNAMM_method";
                         AddMetricResult(metricsResults, currentKey, CFNAMM_method);
 
-                        if (!IsConstructor(method) && !method.Modifiers.Any(SyntaxKind.AbstractKeyword))
+                        if (!metricsUtilities.IsConstructor(method) && !method.Modifiers.Any(SyntaxKind.AbstractKeyword))
                         {
-                            CFNAMM_type += CFNAMM_method;
+                            classMetricsCalculators.Cfnamm_type += CFNAMM_method;
                         }
 
-                        var MAXNESTING_method = 0;// MAXNESTING_Calculator.GetMaxNestingLevel(method.Body);
+                        var MAXNESTING_method = methodMetricsCalculators.Maxnesting_Calculator.GetMaxNestingLevel(method.Body);
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.MAXNESTING_method";
                         AddMetricResult(metricsResults, currentKey, MAXNESTING_method);
 
-                        var FDP_method = 0;// FDP_Calculator.CalculateFDPForMethod(method, semanticModelDocument);
+                        var FDP_method = methodMetricsCalculators.Fdp_Calculator.CalculateFDPForMethod(method, semanticModelDocument);
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.FDP_method";
                         AddMetricResult(metricsResults, currentKey, FDP_method);
 
-                        var NOAV_method = 0;// NOAV_Calculator.CalculateNOAVForMethod(method, semanticModelDocument);
+                        var NOAV_method = methodMetricsCalculators.Noav_Calculator.CalculateNOAVForMethod(method, semanticModelDocument);
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.NOAV_method";
                         AddMetricResult(metricsResults, currentKey, NOAV_method);
 
-                        var NOLV_method = 0;// NOLV_Calculator.CalculateNOLVForMethod(method, semanticModelDocument);
+                        var NOLV_method = methodMetricsCalculators.Nolv_Calculator.CalculateNOLVForMethod(method, semanticModelDocument);
                         currentKey = $"{currentProject}.{currentNamespace}.{className}.{nameMethod}.NOLV_method";
                         AddMetricResult(metricsResults, currentKey, NOLV_method);
                     }
 
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.FANOUT_type";
-                    AddMetricResult(metricsResults, currentKey, FANOUT_type);
+                    AddMetricResult(metricsResults, currentKey, classMetricsCalculators.Fanout_type);
 
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.CFNAMM_type";
-                    AddMetricResult(metricsResults, currentKey, CFNAMM_type);
+                    AddMetricResult(metricsResults, currentKey, classMetricsCalculators.Cfnamm_type);
 
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.NOAM_type";
-                    AddMetricResult(metricsResults, currentKey, NOAM_type);
+                    AddMetricResult(metricsResults, currentKey, classMetricsCalculators.Noam_type);
 
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.WMCNAMM_type";
-                    AddMetricResult(metricsResults, currentKey, WMCNAMM_type);
+                    AddMetricResult(metricsResults, currentKey, classMetricsCalculators.Wmcnamm_type);
 
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.WMC_type";
-                    AddMetricResult(metricsResults, currentKey, WMC_type);
+                    AddMetricResult(metricsResults, currentKey, classMetricsCalculators.Wmc_type);
 
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.ATFD_type";
-                    AddMetricResult(metricsResults, currentKey, ATFD_type);
+                    AddMetricResult(metricsResults, currentKey, classMetricsCalculators.Atfd_type);
 
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.NOMNAMM_type";
-                    AddMetricResult(metricsResults, currentKey, NOMNAMM_type);
+                    AddMetricResult(metricsResults, currentKey, classMetricsCalculators.Nomnamm_type);
 
-                    double NOMNAMM_package = NOMNAMM_type;
+                    double NOMNAMM_package = classMetricsCalculators.Nomnamm_type;
                     currentKey = $"{currentProject}.{currentNamespace}.NOMNAMM_package";
                     AddMetricResult(metricsResults, currentKey, NOMNAMM_package);
 
-                    double NOMNAMM_project = NOMNAMM_type;
+                    double NOMNAMM_project = classMetricsCalculators.Nomnamm_type;
                     currentKey = $"{currentProject}.NOMNAMM_project";
                     AddMetricResult(metricsResults, currentKey, NOMNAMM_project);
 
-                    if (NOMNAMM_type != 0)
-                        AMWNAMM_type = WMCNAMM_type / NOMNAMM_type;
+                    if (classMetricsCalculators.Nomnamm_type != 0)
+                        classMetricsCalculators.Amwnamm_type = classMetricsCalculators.Wmcnamm_type / classMetricsCalculators.Nomnamm_type;
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.AMWNAMM_type";
-                    AddMetricResult(metricsResults, currentKey, AMWNAMM_type);
+                    AddMetricResult(metricsResults, currentKey, classMetricsCalculators.Amwnamm_type);
 
 
                     if (NOM_type != 0)
-                        AMW_type = WMC_type / NOM_type;
+                        classMetricsCalculators.Amw_type = classMetricsCalculators.Wmc_type / NOM_type;
                     currentKey = $"{currentProject}.{currentNamespace}.{className}.AMW_type";
-                    AddMetricResult(metricsResults, currentKey, AMW_type);
+                    AddMetricResult(metricsResults, currentKey, classMetricsCalculators.Amw_type);
                 }
 
                 processedFiles++;
@@ -382,7 +391,7 @@ namespace MetricsExtrator
 
                     foreach (var classDeclaration in classDeclarations)
                     {
-                        currentNamespace = GetNamespace(classDeclaration);
+                        currentNamespace = metricsUtilities.GetNamespace(classDeclaration);
                         var className = classDeclaration.Identifier.ToString();
                         var methods = classDeclaration.DescendantNodes().OfType<MethodDeclarationSyntax>();
                         currentKeyBase = $"{currentProject}.{currentNamespace}.{className}";
@@ -488,7 +497,7 @@ namespace MetricsExtrator
 
                     foreach (var classDeclaration in classDeclarations)
                     {
-                        currentNamespace = GetNamespace(classDeclaration);
+                        currentNamespace = metricsUtilities.GetNamespace(classDeclaration);
 
                         var className = classDeclaration.Identifier.ToString();
                         var methods = classDeclaration.DescendantNodes().OfType<MethodDeclarationSyntax>();
@@ -588,22 +597,7 @@ namespace MetricsExtrator
             {
                 metricsResults[currentKey] = metricValue;
             }
-        }
-        private static string GetNamespace(ClassDeclarationSyntax classDeclaration)
-        {
-            var namespaceDeclaration = classDeclaration.Ancestors().OfType<NamespaceDeclarationSyntax>().FirstOrDefault();
-            return namespaceDeclaration != null ? namespaceDeclaration.Name.ToString() : string.Empty;
-        }
-
-        /*private static bool IsConstructor(MethodDeclarationSyntax method)
-        {
-            // Check if the method is actually a constructor
-            return method.Parent is ConstructorDeclarationSyntax;
-        }*/
-        private static bool IsConstructor(MethodDeclarationSyntax method)
-        {
-            return method.Identifier.ValueText == method.Parent?.ChildTokens().FirstOrDefault(t => t.IsKind(SyntaxKind.IdentifierToken)).ValueText;
-        }
+        }     
 
         private static Dictionary<string, string> LabeledCodeSmell(string codeSmell)
         {
@@ -615,9 +609,6 @@ namespace MetricsExtrator
                 case DC:
                     isMethodCodeSmell = false;
                     return LabeledDataClass();
-                case RB:
-                    isMethodCodeSmell = false;
-                    return LabeledRefusedBequest();
                 case LM:
                     isMethodCodeSmell = true;
                     return LabeledLongMethod();
@@ -638,31 +629,25 @@ namespace MetricsExtrator
         private static Dictionary<string, string> LabeledLongMethod()
         {
             //Slivka et al. 2023's Labeled Long Method 
-            string pathToCsv = @"C:\Users\XXXXX\source\repos\Project1\BaseDatasets\DataSet_Long Method_All projects.csv";
+            string pathToCsv = @"C:\Users\Fabio360\source\repos\MetricsAnalyzer\BaseDatasets\DataSet_Long Method_All projects.csv";
             return BaseLabeledCodeSmell(pathToCsv);
         }
         private static Dictionary<string, string> LabeledLargeClass()
         {
             //Slivka et al. 2023's Labeled Large Class
-            string pathToCsv = @"C:\Users\XXXXX\source\repos\Project1\BaseDatasets\DataSet_Large Class_All projects.csv";
+            string pathToCsv = @"C:\Users\Fabio360\source\repos\MetricsAnalyzer\BaseDatasets\DataSet_Large Class_All projects.csv";
             return BaseLabeledCodeSmell(pathToCsv);
         }
         private static Dictionary<string, string> LabeledFeatureEnvy()
         {
             //S. Prokic et al. Labeled Feature Envy
-            string pathToCsv = @"C:\Users\XXXXX\source\repos\Project1\BaseDatasets\DataSet_Feature Envy_All projects.csv";
-            return BaseLabeledCodeSmell(pathToCsv);
-        }
-        private static Dictionary<string, string> LabeledRefusedBequest()
-        {
-            //S. Prokic et al. Labeled Feature Envy
-            string pathToCsv = @"C:\Users\XXXXX\source\repos\Project1\BaseDatasets\DataSet_Refused Bequest_All projects.csv";
+            string pathToCsv = @"C:\Users\Fabio360\source\repos\MetricsAnalyzer\BaseDatasets\DataSet_Feature Envy_All projects.csv";
             return BaseLabeledCodeSmell(pathToCsv);
         }
         private static Dictionary<string, string> LabeledDataClass()
         {
             //S. Prokic et al. Labeled Feature Envy
-            string pathToCsv = @"C:\Users\XXXXX\source\repos\Project1\BaseDatasets\DataSet_Data Class_All projects.csv";
+            string pathToCsv = @"C:\Users\Fabio360\source\repos\MetricsAnalyzer\BaseDatasets\DataSet_Data Class_All projects.csv";
             return BaseLabeledCodeSmell(pathToCsv);
         }
     }

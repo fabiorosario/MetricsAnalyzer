@@ -7,14 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.ClassMetrics
 {
     internal class TCC_Calculator
     {
-        internal static double CalculateTCCForClass(ClassDeclarationSyntax classDeclaration, SemanticModel semanticModel)
+        MetricsUtilities metricsUtilities;
+        public TCC_Calculator()
+        {
+            metricsUtilities = new MetricsUtilities();
+        }
+        internal double CalculateTCCForClass(ClassDeclarationSyntax classDeclaration, SemanticModel semanticModel)
         {
             var methods = classDeclaration.Members.OfType<MethodDeclarationSyntax>()
-                                .Where(m => !m.Modifiers.Any(SyntaxKind.PrivateKeyword) && !IsConstructor(m))
+                                .Where(m => !m.Modifiers.Any(SyntaxKind.PrivateKeyword) && !metricsUtilities.IsConstructor(m))
                                 .ToList();
 
             var fields = classDeclaration.Members.OfType<FieldDeclarationSyntax>().ToList();
@@ -63,13 +68,6 @@ namespace MetricsExtrator
             int totalPossibleConnections = methods.Count * (methods.Count - 1) / 2;
 
             return totalPossibleConnections > 0 ? (double)directConnectionCount / totalPossibleConnections : 0;
-        }
-
-        private static bool IsConstructor(MethodDeclarationSyntax method)
-        {
-            return method.Identifier.ValueText == method.Parent.DescendantNodes()
-                        .OfType<ClassDeclarationSyntax>()
-                        .FirstOrDefault()?.Identifier.ValueText;
         }
     }
 }

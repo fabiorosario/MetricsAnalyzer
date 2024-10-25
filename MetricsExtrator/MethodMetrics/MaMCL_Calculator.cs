@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.MethodMetrics
 {
-    internal class MaMCLCalculator
+    internal class MaMCL_Calculator
     {
-        internal static int CalculateMaMCLForMethod(MethodDeclarationSyntax method)
+        internal int CalculateMaMCLForMethod(MethodDeclarationSyntax method)
         {
             int maxChainLength = 0;
 
@@ -27,7 +27,7 @@ namespace MetricsExtrator
             return maxChainLength;
         }
 
-        private static int CalculateChainLength(InvocationExpressionSyntax invocation)
+        private int CalculateChainLength(InvocationExpressionSyntax invocation)
         {
             int length = 1; // Uma chamada já tem comprimento 1
             var current = invocation.Expression;

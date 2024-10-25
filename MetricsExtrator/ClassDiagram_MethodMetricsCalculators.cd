@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MetricsExtrator.MethodMetrics.MethodMetricsCalculators">
+    <Position X="4.75" Y="7.75" Width="2.5" />
+    <AssociationLine Name="Mamcl_Calculator" Type="MetricsExtrator.MethodMetrics.MaMCL_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.25" Y="9" />
+        <Point X="7.625" Y="9" />
+        <Point X="7.625" Y="10.648" />
+        <Point X="9" Y="10.648" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.11" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Memcl_Calculator" Type="MetricsExtrator.MethodMetrics.MeMCL_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.25" Y="9" />
+        <Point X="7.625" Y="9" />
+        <Point X="7.625" Y="7.312" />
+        <Point X="9" Y="7.312" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.034" Y="0.143" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Clnamm_Calculator" Type="MetricsExtrator.MethodMetrics.CLNAMM_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="9.062" />
+        <Point X="4.375" Y="9.062" />
+        <Point X="4.375" Y="12.409" />
+        <Point X="2.75" Y="12.409" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.021" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Atfd_Calculator" Type="MetricsExtrator.MethodMetrics.ATFD_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="9.062" />
+        <Point X="4.375" Y="9.062" />
+        <Point X="4.375" Y="5.123" />
+        <Point X="2.75" Y="5.123" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.241" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Cint_Calculator" Type="MetricsExtrator.MethodMetrics.CINT_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="9.062" />
+        <Point X="4.375" Y="9.062" />
+        <Point X="4.375" Y="11.125" />
+        <Point X="2.75" Y="11.125" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.241" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Fanout_Calculator" Type="MetricsExtrator.MethodMetrics.FANOUT_Calculator" FixedFromPoint="true">
+      <Path>
+        <Point X="6" Y="9.882" />
+        <Point X="6" Y="12" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.386" Y="0.195" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Cfnamm_Calculator" Type="MetricsExtrator.MethodMetrics.CFNAMM_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="9.062" />
+        <Point X="4.375" Y="9.062" />
+        <Point X="4.375" Y="9.438" />
+        <Point X="2.75" Y="9.438" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Maxnesting_Calculator" Type="MetricsExtrator.MethodMetrics.MAXNESTING_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.25" Y="9" />
+        <Point X="7.625" Y="9" />
+        <Point X="7.625" Y="8.875" />
+        <Point X="9" Y="8.875" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.021" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Fdp_Calculator" Type="MetricsExtrator.MethodMetrics.FDP_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.25" Y="9" />
+        <Point X="7.625" Y="9" />
+        <Point X="7.625" Y="12.552" />
+        <Point X="9" Y="12.552" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.24" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Noav_Calculator" Type="MetricsExtrator.MethodMetrics.NOAV_Calculator" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.25" Y="9" />
+        <Point X="7.625" Y="9" />
+        <Point X="7.625" Y="5.171" />
+        <Point X="9" Y="5.171" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.082" Y="0.146" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Nolv_Calculator" Type="MetricsExtrator.MethodMetrics.NOLV_Calculator">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.478" Y="0.587" Height="0.182" Width="1.683" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Atld_Calculator" Type="MetricsExtrator.MethodMetrics.ATLD_Calculator" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="9.062" />
+        <Point X="4.375" Y="9.062" />
+        <Point X="4.375" Y="7.094" />
+        <Point X="2.75" Y="7.094" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ABAQSAAACAAAEAgAAAEAAAEAAEACAIAAQAQAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\MethodMetricsCalculators.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Mamcl_Calculator" />
+      <Property Name="Memcl_Calculator" />
+      <Property Name="Clnamm_Calculator" />
+      <Property Name="Atfd_Calculator" />
+      <Property Name="Cint_Calculator" />
+      <Property Name="Fanout_Calculator" />
+      <Property Name="Atld_Calculator" />
+      <Property Name="Cfnamm_Calculator" />
+      <Property Name="Maxnesting_Calculator" />
+      <Property Name="Fdp_Calculator" />
+      <Property Name="Noav_Calculator" />
+      <Property Name="Nolv_Calculator" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.ATFD_Calculator">
+    <Position X="0.5" Y="4.5" Width="2.25" />
+    <AssociationLine Name="metricsUtilities" Type="MetricsExtrator.MetricsUtilities" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.625" Y="4.5" />
+        <Point X="1.625" Y="3.062" />
+        <Point X="9" Y="3.062" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.135" Y="-0.223" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\ATFD_Calculator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="metricsUtilities" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.ATLD_Calculator">
+    <Position X="0.5" Y="6.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAACAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>MethodMetrics\ATLD_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.CFNAMM_Calculator">
+    <Position X="0.5" Y="8.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAIAEAAAAAA=</HashCode>
+      <FileName>MethodMetrics\CFNAMM_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.CINT_Calculator">
+    <Position X="0.5" Y="10.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\CINT_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.CLNAMM_Calculator">
+    <Position X="0.5" Y="12" Width="2.25" />
+    <AssociationLine Name="metricsUtilities" Type="MetricsExtrator.MetricsUtilities" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.562" Y="13.296" />
+        <Point X="1.562" Y="13.436" />
+        <Point X="11.654" Y="13.436" />
+        <Point X="11.654" Y="3.062" />
+        <Point X="10.5" Y="3.062" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\CLNAMM_Calculator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="metricsUtilities" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.FANOUT_Calculator">
+    <Position X="4.75" Y="12" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\FANOUT_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.FDP_Calculator">
+    <Position X="9" Y="12" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\FDP_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.MaMCL_Calculator">
+    <Position X="9" Y="10" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\MaMCL_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.MAXNESTING_Calculator">
+    <Position X="9" Y="8.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAIAA=</HashCode>
+      <FileName>MethodMetrics\MAXNESTING_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.MeMCL_Calculator">
+    <Position X="9" Y="6.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\MeMCL_Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.NOAV_Calculator">
+    <Position X="9" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAIAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\NOAV_Calculator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="metricsUtilities" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MetricsExtrator.MethodMetrics.NOLV_Calculator">
+    <Position X="4.75" Y="4.5" Width="2.5" />
+    <AssociationLine Name="metricsUtilities" Type="MetricsExtrator.MetricsUtilities" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6" Y="4.5" />
+        <Point X="6" Y="3.062" />
+        <Point X="9" Y="3.062" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAABAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MethodMetrics\NOLV_Calculator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="metricsUtilities" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MetricsExtrator.MetricsUtilities" Collapsed="true">
+    <Position X="9" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAACAAAAAAAAAAQAAAAAAAAAAAAAAAACAEAAAAAAAA=</HashCode>
+      <FileName>MetricsUtilities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

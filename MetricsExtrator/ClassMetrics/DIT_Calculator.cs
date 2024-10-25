@@ -4,13 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.ClassMetrics
 {
     internal class DIT_Calculator
     {
-        internal static int CalculateClassDIT(INamedTypeSymbol classSymbol, Project project)
+        internal int CalculateClassDIT(INamedTypeSymbol classSymbol, Project project)
         {
             int depth = 0;
             var currentClass = classSymbol != null ? classSymbol.BaseType : null;

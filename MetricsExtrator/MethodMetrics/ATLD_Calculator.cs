@@ -7,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.MethodMetrics
 {
-    public class ATLD_Calculator
+    internal class ATLD_Calculator
     {
-        public static int CalculateMethodATLD(MethodDeclarationSyntax method, SemanticModel semanticModel)
+        public int CalculateMethodATLD(MethodDeclarationSyntax method, SemanticModel semanticModel)
         {
             var usedVariables = new HashSet<ISymbol>();
             var methodBody = method.Body;
@@ -46,7 +46,7 @@ namespace MetricsExtrator
             return usedVariables.Count;
         }
 
-        public static int CalculateMethodATLD(ConstructorDeclarationSyntax constructor, SemanticModel semanticModel)
+        public int CalculateMethodATLD(ConstructorDeclarationSyntax constructor, SemanticModel semanticModel)
         {
             var usedVariables = new HashSet<ISymbol>();
             var constructorBody = constructor.Body;
@@ -81,7 +81,7 @@ namespace MetricsExtrator
             return usedVariables.Count;
         }
 
-        private static HashSet<ISymbol> GetUsedVariablesInMethod(MethodDeclarationSyntax method, SemanticModel semanticModel)
+        private HashSet<ISymbol> GetUsedVariablesInMethod(MethodDeclarationSyntax method, SemanticModel semanticModel)
         {
             var usedVariables = new HashSet<ISymbol>();
             var methodBody = method.Body;
@@ -106,7 +106,7 @@ namespace MetricsExtrator
             return usedVariables;
         }
 
-        private static HashSet<ISymbol> GetUsedVariablesInMethod(IMethodSymbol methodSymbol, SemanticModel semanticModel)
+        private HashSet<ISymbol> GetUsedVariablesInMethod(IMethodSymbol methodSymbol, SemanticModel semanticModel)
         {
             var usedVariables = new HashSet<ISymbol>();
 
@@ -123,14 +123,9 @@ namespace MetricsExtrator
             return usedVariables;
         }
 
-        private static bool IsLocalToSystem(ISymbol symbol, SemanticModel semanticModel)
+        private bool IsLocalToSystem(ISymbol symbol, SemanticModel semanticModel)
         {
             return symbol.Kind == SymbolKind.Local || symbol.Kind == SymbolKind.Parameter || symbol.ContainingAssembly == semanticModel.Compilation.Assembly;
-        }
-
-        private static bool IsConstructor(MethodDeclarationSyntax method)
-        {
-            return method.Identifier.ValueText == method.Parent?.ChildTokens().FirstOrDefault(t => t.IsKind(SyntaxKind.IdentifierToken)).ValueText;
         }
     }
 }

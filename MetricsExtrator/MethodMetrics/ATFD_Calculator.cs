@@ -7,32 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.MethodMetrics
 {
     internal class ATFD_Calculator
     {
-        internal static int CalculateATFDForClass(ClassDeclarationSyntax classDeclaration, SemanticModel semanticModelCompilation)
+        MetricsUtilities metricsUtilities;
+        public ATFD_Calculator()
         {
-            var ATFD_type = 0;
-            var className = classDeclaration.Identifier.ToString();
-            var fieldDeclarations = classDeclaration.DescendantNodes().OfType<FieldDeclarationSyntax>();
-            foreach (var fieldDeclaration in fieldDeclarations)
-            {
-                var fieldSymbol = semanticModelCompilation.GetDeclaredSymbol(fieldDeclaration.Declaration.Variables.First()) as IFieldSymbol;
-                if (fieldSymbol != null && fieldSymbol.ContainingType.ToString() != className)
-                {
-                    ATFD_type++;
-                }
-            }
-            return ATFD_type;
+            metricsUtilities = new MetricsUtilities();
         }
-
-        internal static int CalculateATFDForMethod(MethodDeclarationSyntax method, SemanticModel semanticModel)
+        internal int CalculateATFDForMethod(MethodDeclarationSyntax method, SemanticModel semanticModel)
         {
             var atfdCount = 0;
             if (!method.Modifiers.Any(SyntaxKind.AbstractKeyword)
                                 && method.Modifiers.Any(SyntaxKind.PublicKeyword)
-                                && !IsConstructor(method))
+                                && !metricsUtilities.IsConstructor(method))
             {
 
                 // Find member access expressions in the method
@@ -51,16 +40,11 @@ namespace MetricsExtrator
 
             return atfdCount;
         }
-        private static bool IsMemberOfSameClass(MethodDeclarationSyntax method, ISymbol symbol)
+        private bool IsMemberOfSameClass(MethodDeclarationSyntax method, ISymbol symbol)
         {
             var methodClass = method.Ancestors().OfType<ClassDeclarationSyntax>().FirstOrDefault();
             var symbolClass = symbol.ContainingType;
             return methodClass != null && symbolClass != null && methodClass.Identifier.Text == symbolClass.Name;
         }
-        private static bool IsConstructor(MethodDeclarationSyntax method)
-        {
-            return method.Identifier.ValueText == method.Parent?.ChildTokens().FirstOrDefault(t => t.IsKind(SyntaxKind.IdentifierToken)).ValueText;
-        }
-
     }
 }

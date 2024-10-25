@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MetricsExtrator
+namespace MetricsExtrator.MethodMetrics
 {
-    internal class MeMCLCalculator
+    internal class MeMCL_Calculator
     {
-        internal static double CalculateMeMCLForMethod(MethodDeclarationSyntax method, SemanticModel semanticModel)
+        internal double CalculateMeMCLForMethod(MethodDeclarationSyntax method, SemanticModel semanticModel)
         {
             var invocationExpressions = method.DescendantNodes().OfType<InvocationExpressionSyntax>();
 
@@ -35,7 +35,7 @@ namespace MetricsExtrator
             return chainCount > 0 ? totalChainLength / chainCount : 0;
         }
 
-        private static int CalculateChainLength(InvocationExpressionSyntax invocation, SemanticModel semanticModel)
+        private int CalculateChainLength(InvocationExpressionSyntax invocation, SemanticModel semanticModel)
         {
             int length = 1;
             var currentNode = invocation.Expression;
