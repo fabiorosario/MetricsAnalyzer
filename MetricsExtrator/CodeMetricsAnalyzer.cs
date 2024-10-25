@@ -629,25 +629,25 @@ namespace MetricsExtrator
         private static Dictionary<string, string> LabeledLongMethod()
         {
             //Slivka et al. 2023's Labeled Long Method 
-            string pathToCsv = @"C:\Users\Fabio360\source\repos\MetricsAnalyzer\BaseDatasets\DataSet_Long Method_All projects.csv";
+            string pathToCsv = @"C:\Users\XXXXXXX\source\repos\MetricsAnalyzer\BaseDatasets\DataSet_Long Method_All projects.csv";
             return BaseLabeledCodeSmell(pathToCsv);
         }
         private static Dictionary<string, string> LabeledLargeClass()
         {
             //Slivka et al. 2023's Labeled Large Class
-            string pathToCsv = @"C:\Users\Fabio360\source\repos\MetricsAnalyzer\BaseDatasets\DataSet_Large Class_All projects.csv";
+            string pathToCsv = @"C:\Users\XXXXXXX\source\repos\MetricsAnalyzer\BaseDatasets\DataSet_Large Class_All projects.csv";
             return BaseLabeledCodeSmell(pathToCsv);
         }
         private static Dictionary<string, string> LabeledFeatureEnvy()
         {
             //S. Prokic et al. Labeled Feature Envy
-            string pathToCsv = @"C:\Users\Fabio360\source\repos\MetricsAnalyzer\BaseDatasets\DataSet_Feature Envy_All projects.csv";
+            string pathToCsv = @"C:\Users\XXXXXXX\source\repos\MetricsAnalyzer\BaseDatasets\DataSet_Feature Envy_All projects.csv";
             return BaseLabeledCodeSmell(pathToCsv);
         }
         private static Dictionary<string, string> LabeledDataClass()
         {
             //S. Prokic et al. Labeled Feature Envy
-            string pathToCsv = @"C:\Users\Fabio360\source\repos\MetricsAnalyzer\BaseDatasets\DataSet_Data Class_All projects.csv";
+            string pathToCsv = @"C:\Users\XXXXXXX\source\repos\MetricsAnalyzer\BaseDatasets\DataSet_Data Class_All projects.csv";
             return BaseLabeledCodeSmell(pathToCsv);
         }
     }

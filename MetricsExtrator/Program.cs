@@ -48,7 +48,7 @@ namespace MetricsExtrator
                 try
                 {
                     Console.WriteLine($"Analysing {projectPath}");
-                    string generatedDatasetPath = @"C:\Users\Fabio360\source\repos\MetricsAnalyzer\GeneratedDatasets\";
+                    string generatedDatasetPath = @"C:\Users\XXXXXXX\source\repos\MetricsAnalyzer\GeneratedDatasets\";
 
                     var progress = new Progress<double>(percent => {
                         Console.WriteLine($"Progresso: {percent:P2}");
@@ -62,8 +62,6 @@ namespace MetricsExtrator
                     exporter.ExportToCsv(labeledCodeSmellMetrics, $"{generatedDatasetPath}\\{codeSmell}\\GeneratedDataset_{codeSmell}");
 
                     Console.WriteLine($"Analysis completed. Results exported to metrics.csv");
-
-                    Console.Beep(264, 1250);
                 }
                 catch { Console.WriteLine($"ERRO no {projectPath}"); }
 
